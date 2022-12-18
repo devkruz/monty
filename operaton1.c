@@ -1,6 +1,32 @@
 #include "monty.h"
 
 /**
+ * op_pop - removes the top element of the stack
+ * @stack: the head of the stack
+ * @line_number: the file current line
+ *
+ * Return: nothing
+*/
+
+void op_pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+	stack_t *head = *stack;
+
+	if (*stack == NULL)
+	{
+		fprintf(stderr, POP_ERROR, line_number);
+		fclose(global_var.file);
+		exit(EXIT_FAILURE);
+	}
+	tmp = head->next;
+	free(head);
+	(*stack) = tmp;
+	if (tmp != NULL)
+		tmp->prev = NULL;
+}
+
+/**
  * op_pint - print the top stack
  * @stack: the head of the stack
  * @line_number: the current file line
