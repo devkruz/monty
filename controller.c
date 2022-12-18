@@ -19,6 +19,7 @@ void controller(int line_number, stack_t **stack)
 		{"push", op_push},
 		{"pint", op_pint},
 		{"pop", op_pop},
+		{"swap", op_swap},
 		{NULL, NULL}
 	};
 

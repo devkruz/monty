@@ -1,6 +1,31 @@
 #include "monty.h"
 
 /**
+ * op_swap -swaps the top two elements of the stack
+ * @stack: the head of the stack
+ * @line_number: the current file line
+ *
+ * Return: nothing
+*/
+
+void op_swap(stack_t **stack, unsigned int line_number)
+{
+	int tmp;
+	int tmp_next;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, SWAP_ERROR, line_number);
+		fclose(global_var.file);
+		exit(EXIT_FAILURE);
+	}
+	tmp = (*stack)->n;
+	tmp_next = (*stack)->next->n;
+	(*stack)->n = tmp_next;
+	(*stack)->next->n = tmp;
+
+}
+/**
  * op_pop - removes the top element of the stack
  * @stack: the head of the stack
  * @line_number: the file current line
