@@ -17,6 +17,7 @@ void controller(int line_number, stack_t **stack)
 	instruction_t opcode_lib[] = {
 		{"pall", op_pall},
 		{"push", op_push},
+		{"pint", op_pint},
 		{NULL, NULL}
 	};
 

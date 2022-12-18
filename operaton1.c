@@ -1,6 +1,27 @@
 #include "monty.h"
 
 /**
+ * op_pint - print the top stack
+ * @stack: the head of the stack
+ * @line_number: the current file line
+ *
+ * Return: nothing
+*/
+
+
+void op_pint(stack_t **stack, unsigned int line_number)
+{
+	if (*stack == NULL)
+	{
+		fprintf(stderr, PINT_ERROR, line_number);
+		fclose(global_var.file);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", (*stack)->n);
+}
+
+
+/**
  * op_push - pushes the new element to the
  * end of the stack
  * @stack: the stack head
@@ -8,6 +29,8 @@
  *
  * Return: nothing
 */
+
+
 void op_push(stack_t **stack, unsigned int line_number)
 {
 	int op_arg;
@@ -46,7 +69,7 @@ void op_pall(stack_t **stack, unsigned int line_number)
 
 	while (head != NULL)
 	{
-		fprintf(stdout, "%d\n", head->n);
+		printf("%d\n", head->n);
 		head = head->next;
 	}
 }
