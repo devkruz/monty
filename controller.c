@@ -12,7 +12,7 @@
 void controller(int line_number, stack_t **stack)
 {
 	char *op;
-	int index;
+	int index = 0;
 
 	instruction_t opcode_lib[] = {
 		{"pall", op_pall},
@@ -23,12 +23,10 @@ void controller(int line_number, stack_t **stack)
 		{NULL, NULL}
 	};
 
-	index = 0;
-
 	op = strtok(global_var.file_content, " \t\n");
 		if (op && op[0] == '#')
 			return;
-	global_var.arg = strtok(NULL, "\t\n");
+	global_var.arg = strtok(NULL, " \t\n");
 
 	while (opcode_lib[index].opcode != NULL && op)
 	{
