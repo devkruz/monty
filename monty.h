@@ -60,6 +60,8 @@ void op_pall(stack_t **stack, unsigned int line_number);
 void op_pint(stack_t **stack, unsigned int line_number);
 void op_pop(stack_t **stack, unsigned int line_number);
 void op_swap(stack_t **stack, unsigned int line_number);
+/* operation2.c */
+void op_add(stack_t **stack, unsigned int line_number);
 /* addnode.c */
 void add_node(int arg, stack_t**);
 /* free_stack.c */
@@ -72,4 +74,5 @@ void free_stack(stack_t **stack);
 #define PINT_ERROR "L%d: can't pint, stack empty\n"
 #define POP_ERROR "L%d: can't pop an empty stack\n"
 #define SWAP_ERROR "L%d: can't swap, stack too short\n"
+#define ADD_ERROR "L%d: can't add, stack too short\n"
 #endif
