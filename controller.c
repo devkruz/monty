@@ -23,6 +23,7 @@ char **file_content, FILE **file)
 		{"pint", op_pint},
 		{"pop", op_pop},
 		{"swap", op_swap},
+		{"add", op_add},
 		{NULL, NULL}
 	};
 

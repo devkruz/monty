@@ -10,9 +10,6 @@
 */
 void op_add(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
-	int tmp, tmp_next;
-	stack_t *sub;
-	stack_t *head = *stack;
 	(void)arg;
 
 	if (*stack == NULL || (*stack)->next == NULL)
@@ -22,10 +19,9 @@ void op_add(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 		*file = NULL;
 		exit(EXIT_FAILURE);
 	}
-	tmp = head->n;
-	tmp_next = head->next->n;
-	sub = head->next;
-	sub->n = tmp + tmp_next;
-	free(head);
-	head = sub;
+
+	(*stack)->next->n = (*stack)->n + (*stack)->next->n;
+	*stack = (*stack)->next;
+	free((*stack)->prev);
+	(*stack)->prev = NULL;
 }
