@@ -22,21 +22,6 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-/**
- * struct global_s - global varibale struct
- * @file: file pointer
- * @file_content: file content per line
- * @arg: operation argumentd
-*/
-
-typedef struct global_s
-{
-	FILE *file;
-	char *arg;
-	char *file_content;
-} global_t;
-
-extern global_t global_var;
 
 /**
  * struct instruction_s - opcode and its function
@@ -49,19 +34,19 @@ extern global_t global_var;
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+	void (*f)(stack_t **stack, unsigned int line_number, char *arg, FILE **file);
 } instruction_t;
 
 /* controller.c */
-void controller(int, stack_t**);
+void controller(int, stack_t**, char**, FILE**);
 /* operation1.c */
-void op_push(stack_t **stack, unsigned int line_number);
-void op_pall(stack_t **stack, unsigned int line_number);
-void op_pint(stack_t **stack, unsigned int line_number);
-void op_pop(stack_t **stack, unsigned int line_number);
-void op_swap(stack_t **stack, unsigned int line_number);
+void op_push(stack_t **stack, unsigned int line_number, char*, FILE**);
+void op_pall(stack_t **stack, unsigned int line_number, char*, FILE**);
+void op_pint(stack_t **stack, unsigned int line_number, char*, FILE**);
+void op_pop(stack_t **stack, unsigned int line_number, char*, FILE**);
+void op_swap(stack_t **stack, unsigned int line_number, char*, FILE**);
 /* operation2.c */
-void op_add(stack_t **stack, unsigned int line_number);
+void op_add(stack_t **stack, unsigned int line_number, char*, FILE**);
 /* addnode.c */
 void add_node(int arg, stack_t**);
 /* free_stack.c */

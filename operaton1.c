@@ -4,19 +4,23 @@
  * op_swap -swaps the top two elements of the stack
  * @stack: the head of the stack
  * @line_number: the current file line
+ * @arg: inputed argument
+ * @file: the file pointer
  *
  * Return: nothing
 */
 
-void op_swap(stack_t **stack, unsigned int line_number)
+void op_swap(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
 	int tmp;
 	int tmp_next;
+	(void)arg;
 
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
 		fprintf(stderr, SWAP_ERROR, line_number);
-		fclose(global_var.file);
+		fclose(*file);
+		*file = NULL;
 		exit(EXIT_FAILURE);
 	}
 	tmp = (*stack)->n;
@@ -29,19 +33,23 @@ void op_swap(stack_t **stack, unsigned int line_number)
  * op_pop - removes the top element of the stack
  * @stack: the head of the stack
  * @line_number: the file current line
+ * @arg: inputed argument
+ * @file: the file pointer
  *
  * Return: nothing
 */
 
-void op_pop(stack_t **stack, unsigned int line_number)
+void op_pop(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
 	stack_t *tmp;
 	stack_t *head = *stack;
+	(void)arg;
 
 	if (*stack == NULL)
 	{
 		fprintf(stderr, POP_ERROR, line_number);
-		fclose(global_var.file);
+		fclose(*file);
+		*file = NULL;
 		exit(EXIT_FAILURE);
 	}
 	tmp = head->next;
@@ -55,17 +63,22 @@ void op_pop(stack_t **stack, unsigned int line_number)
  * op_pint - print the top stack
  * @stack: the head of the stack
  * @line_number: the current file line
+ * @arg: inputed argument
+ * @file: the file pointer
  *
  * Return: nothing
 */
 
 
-void op_pint(stack_t **stack, unsigned int line_number)
+void op_pint(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
+	(void)arg;
+
 	if (*stack == NULL)
 	{
 		fprintf(stderr, PINT_ERROR, line_number);
-		fclose(global_var.file);
+		fclose(*file);
+		*file = NULL;
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
@@ -77,27 +90,27 @@ void op_pint(stack_t **stack, unsigned int line_number)
  * end of the stack
  * @stack: the stack head
  * @line_number: the current file line bean read
+ * @arg: inputed argument
+ * @file: the file pointer
  *
  * Return: nothing
 */
 
 
-void op_push(stack_t **stack, unsigned int line_number)
+void op_push(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
 	int op_arg;
 
-	if (global_var.arg == NULL || strcmp(global_var.arg, "$") == 0)
+	if (arg == NULL || strcmp(arg, "$") == 0)
 	{
-		/* if error occurs */
-			/* close file */
-			/* free stack */
-		/*free_stack(stack);*/
-		fclose(global_var.file);
+		free_stack(stack);
+		fclose(*file);
+		*file = NULL;
 		fprintf(stderr, "L%d: usage: push integer", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	op_arg = atoi(global_var.arg);
+	op_arg = atoi(arg);
 	add_node(op_arg, stack);
 }
 
@@ -105,15 +118,18 @@ void op_push(stack_t **stack, unsigned int line_number)
  * op_pall - print all the element in a stack
  * @stack: the head of stack
  * @line_number: the current file line bean read
- *
- * Return: nothin
+ * @arg: inputed argument
+ * @file: the file pointer
+ * Return: nothing
 */
 
-void op_pall(stack_t **stack, unsigned int line_number)
+void op_pall(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
 	stack_t *head = *stack;
 	(void)line_number;
 	(void)stack;
+	(void)arg;
+	(void)file;
 
 	if (head == NULL)
 		return;
