@@ -34,16 +34,16 @@ char **file_content, FILE **file)
 
 	arg = strtok(NULL, " \t\n");
 
+
 	while (opcode_lib[index].opcode != NULL && op != NULL)
 	{
 		if ((strcmp(opcode_lib[index].opcode, op)) == 0)
 		{
-			opcode_lib[index].f(stack, line_number, arg, file);
+			opcode_lib[index].f(stack, line_number, arg, file, file_content);
 			break;
 		}
 		index++;
 	}
-
 
 	if (opcode_lib[index].opcode == NULL && op != NULL)
 	{

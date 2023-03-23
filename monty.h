@@ -34,19 +34,20 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number, char *arg, FILE **file);
+	void (*f)(stack_t **stack, unsigned int line_number,
+	char *arg, FILE **file, char **file_content);
 } instruction_t;
 
 /* controller.c */
 void controller(int, stack_t**, char**, FILE**);
 /* operation1.c */
-void op_push(stack_t **stack, unsigned int line_number, char*, FILE**);
-void op_pall(stack_t **stack, unsigned int line_number, char*, FILE**);
-void op_pint(stack_t **stack, unsigned int line_number, char*, FILE**);
-void op_pop(stack_t **stack, unsigned int line_number, char*, FILE**);
-void op_swap(stack_t **stack, unsigned int line_number, char*, FILE**);
+void op_push(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
+void op_pall(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
+void op_pint(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
+void op_pop(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
+void op_swap(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
 /* operation2.c */
-void op_add(stack_t **stack, unsigned int line_number, char*, FILE**);
+void op_add(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
 /* addnode.c */
 void add_node(int arg, stack_t**);
 /* free_stack.c */
