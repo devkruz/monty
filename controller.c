@@ -26,13 +26,12 @@ char **file_content, FILE **file)
 		{NULL, NULL}
 	};
 
-	op = strtok((*file_content), " \t\n");
-		if (!op)
+	op = strtok(*file_content, " \t\n");
+
+		if (op == NULL)
 			return;
-	printf("content:%s, op: %s", *file_content, op);
+
 	arg = strtok(NULL, " \t\n");
-	free(*file_content);
-	*file_content = NULL;
 
 	while (opcode_lib[index].opcode != NULL && op != NULL)
 	{
@@ -43,11 +42,14 @@ char **file_content, FILE **file)
 		}
 		index++;
 	}
-	if (opcode_lib[index].opcode == NULL && op)
+
+
+	if (opcode_lib[index].opcode == NULL && op != NULL)
 	{
+		printf("%s\n", op);
 		fprintf(stderr, OP_UNKNOWN, line_number, op);
 		fclose(*file);
-		*file = NULL;
+		free(*file_content);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
