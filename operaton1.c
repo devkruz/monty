@@ -99,18 +99,17 @@ void op_pint(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 
 void op_push(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 {
-	int op_arg;
+	int op_arg = atoi(arg);
 
-	if (arg == NULL || strcmp(arg, "$") == 0)
+	if (arg == NULL || (op_arg == 0 && (strncmp(arg, "0", 1) != 0)))
 	{
 		free_stack(stack);
 		fclose(*file);
 		*file = NULL;
-		fprintf(stderr, "L%d: usage: push integer", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	op_arg = atoi(arg);
 	add_node(op_arg, stack);
 }
 
