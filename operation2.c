@@ -8,15 +8,17 @@
  *
  * Return: nothing
 */
-void op_add(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
+void op_add(stack_t **stack, unsigned int line_number,
+char *arg, FILE **file, char **file_content)
 {
 	(void)arg;
 
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
 		fprintf(stderr, ADD_ERROR, line_number);
+		free(*file_content);
 		fclose(*file);
-		*file = NULL;
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 

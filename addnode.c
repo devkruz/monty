@@ -11,7 +11,6 @@
 
 void add_node(int arg, stack_t **stack)
 {
-	stack_t *head = *stack;
 	stack_t *new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
@@ -22,9 +21,10 @@ void add_node(int arg, stack_t **stack)
 
 	new_node->prev = NULL;
 	new_node->n = arg;
-	new_node->next = head;
+	new_node->next = (*stack);
 
-	if (head != NULL)
-		head->prev = new_node;
+	if (*stack != NULL)
+		(*stack)->prev = new_node;
+
 	*stack = new_node;
 }

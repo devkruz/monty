@@ -10,7 +10,8 @@
  * Return: nothing
 */
 
-void op_swap(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
+void op_swap(stack_t **stack, unsigned int line_number,
+char *arg, FILE **file, char **file_content)
 {
 	int tmp;
 	int tmp_next;
@@ -20,7 +21,7 @@ void op_swap(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 	{
 		fprintf(stderr, SWAP_ERROR, line_number);
 		fclose(*file);
-		*file = NULL;
+		free(file_content);
 		exit(EXIT_FAILURE);
 	}
 	tmp = (*stack)->n;
@@ -39,7 +40,8 @@ void op_swap(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
  * Return: nothing
 */
 
-void op_pop(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
+void op_pop(stack_t **stack, unsigned int line_number,
+ char *arg, FILE **file, char **file_content)
 {
 	stack_t *tmp;
 	stack_t *head = *stack;
@@ -49,7 +51,7 @@ void op_pop(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 	{
 		fprintf(stderr, POP_ERROR, line_number);
 		fclose(*file);
-		*file = NULL;
+		free(*file_content);
 		exit(EXIT_FAILURE);
 	}
 	tmp = head->next;
@@ -70,7 +72,8 @@ void op_pop(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 */
 
 
-void op_pint(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
+void op_pint(stack_t **stack, unsigned int line_number,
+char *arg, FILE **file, char **file_content)
 {
 	(void)arg;
 
@@ -78,7 +81,7 @@ void op_pint(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 	{
 		fprintf(stderr, PINT_ERROR, line_number);
 		fclose(*file);
-		*file = NULL;
+		free(*file_content);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
@@ -97,7 +100,8 @@ void op_pint(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 */
 
 
-void op_push(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
+void op_push(stack_t **stack, unsigned int line_number,
+char *arg, FILE **file, char **file_content)
 {
 	int op_arg = atoi(arg);
 
@@ -105,7 +109,7 @@ void op_push(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
 	{
 		free_stack(stack);
 		fclose(*file);
-		*file = NULL;
+		free(*file_content);
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
@@ -122,13 +126,15 @@ void op_push(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
  * Return: nothing
 */
 
-void op_pall(stack_t **stack, unsigned int line_number, char *arg, FILE **file)
+void op_pall(stack_t **stack, unsigned int line_number,
+char *arg, FILE **file, char **file_content)
 {
 	stack_t *head = *stack;
 	(void)line_number;
 	(void)stack;
 	(void)arg;
 	(void)file;
+	(void)file_content;
 
 	if (head == NULL)
 		return;
