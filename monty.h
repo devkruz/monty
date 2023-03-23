@@ -48,6 +48,7 @@ void op_pop(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
 void op_swap(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
 /* operation2.c */
 void op_add(stack_t **stack, unsigned int line_number, char*, FILE**, char**);
+void op_nop(stack_t **stack, unsigned int line_number, char *arg, FILE**, char**);
 /* addnode.c */
 void add_node(int arg, stack_t**);
 /* free_stack.c */

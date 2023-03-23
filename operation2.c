@@ -28,3 +28,26 @@ char *arg, FILE **file, char **file_content)
 	free((*stack)->prev);
 	(*stack)->prev = NULL;
 }
+
+/**
+ * op_nop - does nothing
+ * @stack: the head of the stack
+ * @line_number: the current file line
+ * @arg: inputed argument
+ * @file: the file pointer
+ * @file_content: the current file line content
+ *
+ * Return: nothing
+*/
+
+void op_nop(stack_t **stack, unsigned int line_number,
+char *arg, FILE **file, char **file_content)
+{
+	(void)arg;
+	(void)stack;
+	(void)line_number;
+	(void)file;
+	(void)file_content;
+
+	return;
+}
