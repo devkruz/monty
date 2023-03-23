@@ -5,13 +5,16 @@
  * for the stack
  * @line_number: current file line bean read
  * @stack: the head of the
+ * @file_content: the file content
+ * @file: file pointer
  *
  * Return: nothing
 */
 
-void controller(int line_number, stack_t **stack)
+void controller(int line_number, stack_t **stack,
+char **file_content, FILE **file)
 {
-	char *op;
+	char *op, *arg;
 	int index = 0;
 
 	instruction_t opcode_lib[] = {
@@ -23,16 +26,19 @@ void controller(int line_number, stack_t **stack)
 		{NULL, NULL}
 	};
 
-	op = strtok(global_var.file_content, " \t\n");
-		if (op && op[0] == '#')
+	op = strtok((*file_content), " \t\n");
+		if (!op)
 			return;
-	global_var.arg = strtok(NULL, " \t\n");
+	printf("content:%s, op: %s", *file_content, op);
+	arg = strtok(NULL, " \t\n");
+	free(*file_content);
+	*file_content = NULL;
 
-	while (opcode_lib[index].opcode != NULL && op)
+	while (opcode_lib[index].opcode != NULL && op != NULL)
 	{
 		if ((strcmp(opcode_lib[index].opcode, op)) == 0)
 		{
-			opcode_lib[index].f(stack, line_number);
+			opcode_lib[index].f(stack, line_number, arg, file);
 			break;
 		}
 		index++;
@@ -40,7 +46,8 @@ void controller(int line_number, stack_t **stack)
 	if (opcode_lib[index].opcode == NULL && op)
 	{
 		fprintf(stderr, OP_UNKNOWN, line_number, op);
-		fclose(global_var.file);
+		fclose(*file);
+		*file = NULL;
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}

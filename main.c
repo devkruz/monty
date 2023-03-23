@@ -4,7 +4,6 @@
 #include <string.h>
 #include "monty.h"
 
-global_t global_var = {NULL, NULL, NULL};
 
 /**
 * main - monty code interpreter
@@ -19,29 +18,33 @@ int main(int argc, char *argv[])
 {
 	stack_t *stack = NULL;
 	int line_number = 0;
-	size_t file_content_count = 0;
+	char *file_content = NULL;
+	size_t file_content_size = 0;
+	FILE *file;
 
 	if (argc != 2)
 	{
 		fprintf(stderr, USAGE);
 		exit(EXIT_FAILURE);
 	}
-	global_var.file = fopen(argv[1], "r");
 
-	if (global_var.file == NULL)
+	file = fopen(argv[1], "r");
+
+	if (file == NULL)
 	{
 		fprintf(stderr, FILE_ERROR, argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while ((getline(&global_var.file_content,
-	&file_content_count, global_var.file)) != -1)
+	while ((getline(&file_content,
+	&file_content_size, file)) != -1)
 	{
 		line_number++;
-		controller(line_number, &stack);
+		controller(line_number, &stack, &file_content, &file);
 	}
 
-	fclose(global_var.file);
+	fclose(file);
+	free(file_content);
 	free_stack(&stack);
 	return (EXIT_SUCCESS);
 }
